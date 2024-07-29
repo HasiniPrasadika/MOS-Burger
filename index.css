@@ -1,0 +1,66 @@
+body{
+    background-color: #0D0D0D;
+    width: 100vw;
+    height: 100vh;
+overflow: hidden;
+    background-image: url('images/burger_home.png');
+    background-size: 50% auto;
+    background-repeat: no-repeat;
+    background-position: 8vw -4vh;
+
+ 
+}
+main{
+    justify-content: right;
+    align-items: center;
+
+padding-right: 16vw;
+padding-left: 72vw;
+padding-top: 30vh;
+padding-bottom: 30vh;
+   
+}
+.mos-logo{
+    font-family: 'Galada';
+    font-size: 38px;
+    color: #FFA800;
+    padding: 20px;
+
+}
+.main-home-content{
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: left; */
+    /* align-items: flex-start; */
+    /* padding: 20vh 10vw 10vh 70vw; */
+
+}
+
+.main-home-button{
+    display: flex;
+   
+   padding-left: 10vw;
+   padding-right: 10vw;
+    width: 12vw;
+  
+}
+.main-home-button-text{
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    font-size: 1.6vw;
+    padding: 1.2vh 1vw 1.2vh 1vw;
+    background-color: #FFA800;
+    width: 100%;
+    border-radius: 30px;
+    font-family: 'Goudy Bookletter 1911';
+}
+
+@media screen and (max-width: 992px) {
+    
+  }
