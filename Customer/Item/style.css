@@ -1,0 +1,75 @@
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.navbarNavigation a {
+  color: #ffc107;
+}
+
+.bugerItem img {
+  width: 250px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  top: -75px;
+}
+
+.cardBody{
+    padding-top: 140px;
+    background-color: #d9d9d9;
+}
+
+
+.containerSection .headerSection h3 {
+  color: #212529;
+}
+
+@media only screen and (max-width: 992px) {
+    .bugerItem img {
+        width: 200px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        position: absolute;
+        top: -50px;
+      }
+      
+      .cardBody{
+          padding-top: 140px;
+          background-color: #d9d9d9;
+      }
+      
+      
+      .containerSection .headerSection h3 {
+        color: #212529;
+      }
+}
+
+@media only screen and (max-width: 768px) {
+  .bugerItem img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    top: -50px;
+  }
+  
+  .cardBody{
+      padding-top: 140px;
+      background-color: #d9d9d9;
+  }
+  
+  
+  .containerSection .headerSection h3 {
+    color: #212529;
+  }
+}
+
+@media only screen and (max-width: 576) {
+  
+}
