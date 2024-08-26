@@ -23,7 +23,12 @@ body {
     background-color: #d9d9d9;
 }
 
-
+.category-section {
+  margin-bottom: 40px; /* Space below the entire category section */
+}
+.category-title {
+  margin-bottom: 50px; /* Space between the category title and the items */
+}
 .containerSection .headerSection h3 {
   color: #212529;
 }

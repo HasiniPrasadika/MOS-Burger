@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System User Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="bg-dark">
+    <nav class="navbar bg-dark navbar-expand-lg px-lg-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../../images/Logo.png" alt="" style="width: 12vw; height: auto;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+                <ul class="navbar-nav mb-0">
+                    <li class="nav-item px-3">
+                        <a class="nav-link" aria-current="page" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="../Items/items_system.html">Items</a>
+                    </li>
+                    <li class="nav-item px-3">
+                        <a class="nav-link" href="../Order/orders.html">Orders</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="content py-5 sectionContainer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-white">Manage Items</h2>
+                    <form id="item-form" class="bg-light p-4 rounded">
+                        <div class="form-group">
+                            <label for="item-name">Item Name</label>
+                            <input type="text" class="form-control" id="item-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-price">Price</label>
+                            <input type="number" class="form-control" id="item-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-quantity">Quantity</label>
+                            <input type="number" class="form-control" id="item-quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-discount">Discount (%)</label>
+                            <input type="number" class="form-control" id="item-discount">
+                        </div>
+                        <div class="form-group">
+                            <label for="item-expiry">Expiry Date</label>
+                            <input type="date" class="form-control" id="item-expiry" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-category">Category</label>
+                            <select class="form-control" id="item-category" required>
+                                <option value="Burgers">Burgers</option>
+                                <option value="Submarines">Submarines</option>
+                                <option value="Fries">Fries</option>
+                                <option value="Pasta">Pasta</option>
+                                <option value="Chicken">Chicken</option>
+                                <option value="Beverages">Beverages</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-description">Description</label>
+                            <textarea class="form-control" id="item-description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="item-image">Image</label>
+                            <input type="file" class="form-control" id="item-image" accept="image/*" required>
+                            <img id="image-preview" src="#" alt="Image Preview" class="img-fluid mt-2" style="display: none;">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Add Item</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const itemForm = document.getElementById('item-form');
+            const imageInput = document.getElementById('item-image');
+            const imagePreview = document.getElementById('image-preview');
+
+            // Show image preview when a file is selected
+            imageInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.src = '#';
+                    imagePreview.style.display = 'none';
+                }
+            });
+
+            itemForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const itemName = document.getElementById('item-name').value;
+                const itemPrice = document.getElementById('item-price').value;
+                const itemQuantity = document.getElementById('item-quantity').value;
+                const itemDiscount = document.getElementById('item-discount').value || 0;
+                const itemExpiry = document.getElementById('item-expiry').value;
+                const itemCategory = document.getElementById('item-category').value;
+                const itemDescription = document.getElementById('item-description').value;
+
+                // Get image file as a data URL
+                const file = imageInput.files[0];
+                let itemImage = '';
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        itemImage = e.target.result;
+
+                        const item = {
+                            id: Date.now(),
+                            name: itemName,
+                            price: itemPrice,
+                            quantity: itemQuantity,
+                            discount: itemDiscount,
+                            expiry: itemExpiry,
+                            category: itemCategory,
+                            description: itemDescription,
+                            image: itemImage
+                        };
+
+                        let items = JSON.parse(localStorage.getItem('items')) || [];
+                        items.push(item);
+                        localStorage.setItem('items', JSON.stringify(items));
+
+                        window.location.href = "../Items/items_system.html"; // Adjusted path
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    // Handle case where no file is selected
+                    const item = {
+                        id: Date.now(),
+                        name: itemName,
+                        price: itemPrice,
+                        quantity: itemQuantity,
+                        discount: itemDiscount,
+                        expiry: itemExpiry,
+                        category: itemCategory,
+                        description: itemDescription,
+                        image: '../../images/default.png' // Default image if no file is selected
+                    };
+
+                    let items = JSON.parse(localStorage.getItem('items')) || [];
+                    items.push(item);
+                    localStorage.setItem('items', JSON.stringify(items));
+
+                    window.location.href = "../Items/items_system.html"; // Adjusted path
+                }
+            });
+        });
+    </script>
+</body>
+</html>

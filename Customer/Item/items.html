@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
+   
 </head>
 
 <body class="bg-dark">
@@ -29,436 +30,113 @@
                         <a class="nav-link " href="/Customer/Item/items.html">Items</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link " href="#">Cart</a>
+                        <a class="nav-link " href="/Customer/cart/cart.html">Cart</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section id="burger">
+    <section id="items">
         <div class="containerSection">
-            <div class="headerSection mb-3">
-                <h3 class="bg-warning ps-5 py-1">BURGERS</h3>
-            </div>
-            <div class="container mt-lg-5">
-                <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3 cardContainer" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Burger(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Burger(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Burger(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Burger(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <div class="container mt-lg-5" id="items-container">
+                <!-- Categories and items will be dynamically inserted here -->
             </div>
         </div>
     </section>
 
-    <section id="submarine">
-        <div class="containerSection">
-            <div class="headerSection mb-3">
-                <h3 class="bg-warning ps-5 py-1">SUBMARINES</h3>
-            </div>
-            <div class="container mt-lg-5">
-                <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get items from local storage
+            const items = JSON.parse(localStorage.getItem('items')) || [];
+
+            // Group items by category
+            const groupedItems = items.reduce((acc, item) => {
+                if (!acc[item.category]) {
+                    acc[item.category] = [];
+                }
+                acc[item.category].push(item);
+                return acc;
+            }, {});
+
+            // Get the container where items will be added
+            const itemsContainer = document.getElementById('items-container');
+
+            // Function to create item card HTML
+            function createItemCard(item) {
+                return `
                     <div class="col bugerItem py-3">
                         <div class="card text-bg-light mb-3 cardContainer" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
+                            <img src="${item.image || '../../images/burger.png'}" alt="">
                             <div class="card-body cardBody">
-                                <h4 class="card-title">Crispy Chicken</h4>
-                                <h5 class="card-title">Submarine(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
+                                <h4 class="card-title item-name">${item.name}</h4>
+                                <h5 class="card-title item-category">${item.category}</h5>
+                                <p class="card-text">${item.description}</p>
+                                <p class="card-text">Expiry Date: ${item.expiry}</p>
+                                <p class="card-text">Discount: ${item.discount ? item.discount + '%' : 'No Discount'}</p>
+                                <p class="card-text">Quantity: ${item.quantity}</p>
                                 <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
+                                    <h5 class="card-title">${item.price} LKR</h5>
+                                    <button class="btn btn-dark placeOrder" type="button" onclick="placeOrder(this)">Place Order</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Grinder</h4>
-                                <h5 class="card-title">Submarine</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+                `;
+            }
 
-                            </div>
+            // Add each category section to the container
+            for (const [category, itemsList] of Object.entries(groupedItems)) {
+                const categorySection = `
+                    <div class="category-section">
+                        <h4 class="bg-warning ps-5 py-1 category-title">${category}</h4>
+                        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+                            ${itemsList.map(createItemCard).join('')}
                         </div>
                     </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Chicken</h4>
-                                <h5 class="card-title">Submarine(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+                `;
+                itemsContainer.innerHTML += categorySection;
+            }
+        });
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Submarine(Medium)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+        function placeOrder(button) {
+    // Retrieve item details from the card body
+    const cardBody = button.closest('.card-body');
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    // Get all elements with class 'card-title' inside the card body
 
-    <section id="Fries">
-        <div class="containerSection">
-            <div class="headerSection mb-3">
-                <h3 class="bg-warning ps-5 py-1">FRIES</h3>
-            </div>
-            <div class="container mt-lg-5">
-                <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3 cardContainer" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Steak</h4>
-                                <h5 class="card-title">Fries(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Steak</h4>
-                                <h5 class="card-title">Fries(Medium)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Combine the text content of all title elements to form the item name
+    const itemName = cardBody.querySelector('.item-name').textContent.trim();
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">French</h4>
-                                <h5 class="card-title">Fries(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Get the price from the card body
+    const itemPriceText = cardBody.querySelector('.d-flex .card-title').textContent.trim();
+    const itemPrice = parseFloat(itemPriceText.replace('LKR', '').trim());
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">French</h4>
-                                <h5 class="card-title">Fries(Medium)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Get the discount from the card body
+    const discountText = cardBody.querySelector('.card-text:nth-of-type(3)').textContent.trim().replace('Discount: ', '').replace('%', '');
+    const discountPercentage = parseFloat(discountText) || 0;
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    // Calculate the discount amount and the final price
+    const discountAmount = (itemPrice * discountPercentage) / 100;
+    
 
-    <section id="Pasta">
-        <div class="containerSection">
-            <div class="headerSection mb-3">
-                <h3 class="bg-warning ps-5 py-1">PASTA</h3>
-            </div>
-            <div class="container mt-lg-5">
-                <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3 cardContainer" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Chicken n Cheese</h4>
-                                <h5 class="card-title">Pasta</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Retrieve the current cart from local storage or initialize an empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Pasta</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Add the new item to the cart with discount and final price
+    cart.push({ name: itemName, price: itemPrice.toFixed(2), discount: discountAmount.toFixed(2) });
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Chicken Penne</h4>
-                                <h5 class="card-title">Pasta</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Save the updated cart back to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Ground Turkey</h4>
-                                <h5 class="card-title">Pasta Bake</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
+    // Display a confirmation message
+    alert(`${itemName} has been added to your cart!`);
+}
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="Chicken">
-        <div class="containerSection">
-            <div class="headerSection mb-3">
-                <h3 class="bg-warning ps-5 py-1">CHICKEN</h3>
-            </div>
-            <div class="container mt-lg-5">
-                <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3 cardContainer" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Fried</h4>
-                                <h5 class="card-title">Chicken(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Hot Wings</h4>
-                                <h5 class="card-title">Chicken(Large)</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Classic</h4>
-                                <h5 class="card-title">Chicken</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col bugerItem py-3">
-                        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-                            <img src="../../images/burger.png" alt="">
-                            <div class="card-body cardBody">
-                                <h4 class="card-title">Devilled</h4>
-                                <h5 class="card-title">Chicken</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <div class="d-flex justify-content-around align-items-center">
-                                    <h5 class="card-title">750 LKR</h5>
-                                    <button class="btn btn-dark placeOrder" type="submit">Place Order</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,21 @@
+body {
+    padding-top: 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+#items-container {
+    margin-top: 2rem;
+}
+
+.sectionContainer {
+    background-color: #343a40;
+    padding: 2rem;
+    border-radius: 8px;
+}
